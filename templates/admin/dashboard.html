@@ -1,1 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Kenshi Shop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .order-card { background: #1e1e1e; padding: 20px; border-radius: 10px; margin-bottom: 20px; border-left: 5px solid #00aaff; }
+        .order-details { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+        .receipt-image { max-width: 200px; border-radius: 8px; margin-top: 10px; display: block; }
+        .proof-checkbox { margin-top: 15px; display: flex; align-items: center; }
+        .proof-checkbox input { margin-right: 10px; width: 18px; height: 18px; cursor: pointer; }
+        .proof-checkbox label { cursor: pointer; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="{{ url_for('index') }}" class="navbar-brand">Kenshi Shop</a>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('admin_dashboard') }}">Dashboard</a></li>
+            <li><a href="{{ url_for('manage_products') }}">Manage Products</a></li>
+            <li><a href="{{ url_for('add_product') }}">Add Product</a></li>
+            <li><a href="{{ url_for('admin_logout') }}">Logout</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1 class="page-title">Pending Orders</h1>
+        {% if orders %}
+            {% for order in orders %}
+            <div class="order-card">
+                <div class="order-details">
+                    <div>
+                        <h3>Product: {{ order.product_name }}</h3>
+                        
+                        <p>
+                            <strong>Buyer's Telegram:</strong>
+                            {% if order.buyer_username %}
+                                <a href="https://t.me/{{ order.buyer_username }}" target="_blank" style="color: #00aaff; text-decoration: none;">
+                                    @{{ order.buyer_username }}
+                                </a>
+                            {% elif order.buyer_chat_id %}
+                                <span>Chat ID: {{ order.buyer_chat_id }} (No public username)</span>
+                            {% else %}
+                                <span style="color: #ffc107;">Awaiting user to link account...</span>
+                            {% endif %}
+                        </p>
 
+                        <p><strong>Payment Method:</strong> <span style="font-weight: bold; color: #00aaff;">{{ order.payment_method|capitalize }}</span></p>
+                        
+                        {% if order.receipt_filename %}
+                            <p><strong>Payment Proof:</strong></p>
+                            <a href="{{ url_for('static', filename='receipts/' + order.receipt_filename) }}" target="_blank">
+                                <img src="{{ url_for('static', filename='receipts/' + order.receipt_filename) }}" alt="Receipt" class="receipt-image">
+                            </a>
+                        {% else %}
+                            <p><strong>Payment Proof:</strong> <span style="color: #ffc107;">Not yet uploaded.</span></p>
+                        {% endif %}
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <form method="post" action="{{ url_for('approve_order', order_id=order.id) }}">
+                            <div class="proof-checkbox">
+                                <input type="checkbox" id="mark_as_proof_{{order.id}}" name="mark_as_proof">
+                                <label for="mark_as_proof_{{order.id}}">Add to transaction proofs?</label>
+                            </div>
+                            <button type="submit" class="btn">Approve & Send File</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>There are no pending orders.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
