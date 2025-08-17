@@ -1,5 +1,3 @@
-# Corrected render.yaml (Final Final Version)
-
 services:
   # The Flask Web Application
   - type: web
@@ -8,7 +6,6 @@ services:
     plan: free 
     buildCommand: "pip install -r requirements.txt"
     startCommand: "gunicorn app:app"
-    # CORRECT: The disks definition goes directly inside the service that uses it.
     disks:
       - name: data-disk
         mountPath: /data
@@ -25,22 +22,11 @@ services:
       - key: ADMIN_TELEGRAM_CHAT_ID
         sync: false 
       - key: DATA_FOLDER_PATH
-        value: /data # This tells the app where the mounted disk is
+        value: /data
 
   # The Telegram Bot Background Worker
   - type: worker
-    name: KenshiShop
-    env: python
-    plan: free
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "python -c 'from app import load_data, run_bot; load_data(); run_bot()'"
-    envVars:
-      - key: PYTHON_VERSION
-        value: 3.10.6
-      - key: TELEGRAM_BOT_TOKEN
-        sync: false
-      - key: ADMIN_TELEGRAM_CHAT_ID
-        sync: false    name: kenshi-bot
+    name: kenshi-bot
     env: python
     plan: free
     buildCommand: "pip install -r requirements.txt"
