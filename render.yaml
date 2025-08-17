@@ -1,9 +1,9 @@
-# Corrected render.yaml (Version 3)
+# Corrected render.yaml (Final Version)
 
 # Top-level definition for all persistent disks in this Blueprint
 disks:
   - name: data-disk
-    mountPath: /data # The path where the disk will be available
+    mountPath: /data
     sizeGB: 1
 
 # Definition for all services
@@ -41,23 +41,6 @@ services:
     startCommand: "python -c 'from app import load_data, run_bot; load_data(); run_bot()'"
     envVars:
       - key: PYTHON_VERSION
-        value: 3.10.6
-      - key: TELEGRAM_BOT_TOKEN
-        sync: false
-      - key: ADMIN_TELEGRAM_CHAT_ID
-        sync: false  - type: worker
-    name: kenshi-bot
-    env: python
-    plan: free
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "python -c 'from app import load_data, run_bot; load_data(); run_bot()'"
-    envVars:
-      - key: PYTHON_VERSION
-        value: 3.10.6
-      - key: TELEGRAM_BOT_TOKEN
-        sync: false
-      - key: ADMIN_TELEGRAM_CHAT_ID
-        sync: false      - key: PYTHON_VERSION
         value: 3.10.6
       - key: TELEGRAM_BOT_TOKEN
         sync: false
