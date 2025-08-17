@@ -1,0 +1,64 @@
+{
+    "8955b3d0-2321-4c32-aa17-582382da2a09": {
+        "id": "8955b3d0-2321-4c32-aa17-582382da2a09",
+        "slug": "garena-checker-no-need-php-open-source-c8c9",
+        "name": "GARENA CHECKER NO NEED PHP (OPEN SOURCE)",
+        "price": "3.59",
+        "status": "available",
+        "category": "tools",
+        "image_filename": "8955b3d0-2321-4c32-aa17-582382da2a09_1000641153.jpg",
+        "bonus_freebies": [
+            "Bot key 3 days access",
+            "Free tuts how to run Termux/Pydroid3"
+        ],
+        "script_filename": "8955b3d0-2321-4c32-aa17-582382da2a09_garena-checker-no-need-php-open-source.zip",
+        "description": "Key Features & Capabilities\r\n\ud83d\ude80 High-Speed Batch Processing\r\nUtilizes a multi-threaded engine with selectable speed profiles (Slow, Medium, Fast, Ultra) to check accounts concurrently and maximize speed.\r\n\ud83e\udde0 Deep Account Intelligence\r\nExtracts full Garena security details: Email/Phone binding, 2FA status, and Shell balance.\r\nPulls complete Call of Duty: Mobile stats: Nickname, Level, UID, and Region.\r\n\ud83d\uddc2\ufe0f Intelligent File Sorting\r\nAutomatically saves valid accounts into a structured folder system sorted by Country, security status (clean/not_clean), and CODM Level Range.\r\n\ud83d\udee1\ufe0f Smart CAPTCHA Shield\r\nDetects Garena's CAPTCHA blocks, pauses the scan, and allows you to resume after an IP change, making large-scale checking possible.\r\n\u2728 Elite Report Generation\r\nFor every valid account, it displays a detailed, color-coded \"Elite Report\" in the console for immediate analysis.\r\n\ud83d\udd14 Optional Telegram Alerts\r\nCan be configured to instantly send the Elite Report to your Telegram for high-value accounts (Level 150+).\r\n\ud83d\udcbe Scan Resumption & Progress Saving\r\nAutomatically saves your progress, allowing you to safely stop and resume long scans without starting over from the beginning.\r\n\r\nCan check 1k lines"
+    },
+    "df76c628-bf22-4d3c-8830-8297ef43d223": {
+        "id": "df76c628-bf22-4d3c-8830-8297ef43d223",
+        "slug": "mobile-legend-account",
+        "name": "Mobile Legend Account",
+        "price": "2",
+        "status": "available",
+        "category": "ml_account",
+        "image_filename": "df76c628-bf22-4d3c-8830-8297ef43d223_1000641136.jpg",
+        "bonus_freebies": [
+            "Bot key 3 days"
+        ],
+        "script_filename": "df76c628-bf22-4d3c-8830-8297ef43d223_mobile-legend-account.zip",
+        "description": "\u2b50 Mobile Legends Account!\r\n\r\n\ud83c\udfae Level:119\r\n\ud83d\udc64 Name:G\u2090\u1d62\u2c7cz\u2092\u267b\ufe0f\r\n\ud83c\udd94 UID:91348328\r\n\ud83d\udc8e Server:2183\r\n\ud83c\udfc6 Rank: Mythic Glory (59 stars)\r\n\ud83d\udd17 Bind(s): Moonton, Fb\r\n\ud83c\udf0d Country:Indo\r\n\ud83d\udc80 Skin: Exalted Collector III \r\n\r\n\r\nBuy at your own risk!\r\nStrictly No Refund!"
+    },
+    "6643e8f0-5b17-48f3-afc1-1dbe67b39dab": {
+        "id": "6643e8f0-5b17-48f3-afc1-1dbe67b39dab",
+        "slug": "garena-checker-need-php-open-source",
+        "name": "GARENA CHECKER NEED PHP (Open Source)",
+        "price": "4.49",
+        "status": "available",
+        "category": "tools",
+        "image_filename": "6643e8f0-5b17-48f3-afc1-1dbe67b39dab_1000641161.jpg",
+        "bonus_freebies": [
+            "Bot key for 3 days access",
+            "Free tuts how to run Termux/Pydroid3",
+            "Free tuts setup the x10hosting for your own site:)"
+        ],
+        "script_filename": "6643e8f0-5b17-48f3-afc1-1dbe67b39dab_garena-checker-need-php-open-source.zip",
+        "description": "Key Features:\r\n\r\n\r\n\ud83d\ude80 High-Speed Bulk Checker\r\nProcesses large user:pass lists with an automatic duplicate remover to ensure maximum efficiency.\r\n\ud83c\udfae Detailed CODM Profiler\r\nRetrieves player Nickname, Level, Region, and UID for all linked Garena accounts.\r\n\ud83d\udcc2 Smart Result Organization\r\nAutomatically sorts successful hits into folders by Country and CODM Level Range (e.g., results/PH/101-200_clean.txt).\r\n\ud83e\udd16 Intelligent CAPTCHA Recovery\r\nWhen blocked, the script pauses and offers recovery options like fetching new cookies or retrying after an IP change.\r\n\ud83d\udd04 Session & Progress Resume\r\nNever lose your work. The script saves its progress, allowing you to resume an interrupted session from exactly where you left off.\r\n\ud83d\udcca In-Depth Analytics\r\nAt the end of each session, receive a full report detailing hit rates, country distribution, and highlights for top-tier accounts.\r\n\ud83d\udcf2 Instant Telegram Alerts\r\nGet real-time notifications sent directly to your Telegram for every successful account hit with CODM data.\r\n\r\nCan check 1k lines"
+    },
+    "7c48507a-7435-4034-96eb-75b92ea16789": {
+        "id": "7c48507a-7435-4034-96eb-75b92ea16789",
+        "slug": "garena-web-checker",
+        "name": "GARENA WEB CHECKER",
+        "price": "1.5",
+        "status": "available",
+        "category": "web_checker",
+        "image_filename": "7c48507a-7435-4034-96eb-75b92ea16789_1000641170.jpg",
+        "bonus_freebies": [
+            "2k line ( Codm/Ml txt)"
+        ],
+        "checker_type": "website_link",
+        "website_link": "https://kenzen-web.vercel.app/",
+        "expiration_days": "3",
+        "script_filename": null,
+        "description": "\" Web Garena Checker\"\r\n\r\nCan change theme color\r\nFree tuts how to run\r\nCompatible for all device\r\nNo device id\r\nTelegram bot results\r\nCan check 200 line\r\nStop checking when CAPTCHA detected\r\nCan choose fetch fresh datadome or use cookie_config.py or change vpn\r\nCan choose cookie module\r\n1.auto cookie\r\n2. Ken cookie\r\nCan remove duplicate \r\nCan check the line have error or lost connection can recheck\r\nCan stop the checking if you want to check codm account and can continue checking.\r\nCan change theme color credit and the banner\r\nCan change all theme\r\nRisky to use but ok\r\n\r\nTest only"
+    }
+}
