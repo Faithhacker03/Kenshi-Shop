@@ -29,7 +29,7 @@ services:
 
   # The Telegram Bot Background Worker
   - type: worker
-    name: kenshi-bot
+    name: KenshiShop
     env: python
     plan: free
     buildCommand: "pip install -r requirements.txt"
