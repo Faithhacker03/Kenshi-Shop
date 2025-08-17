@@ -1,3 +1,12 @@
+# Corrected render.yaml
+
+# Top-level definition for all persistent disks in this Blueprint
+disks:
+  - name: data-disk
+    mountPath: /data # The path where the disk will be available
+    sizeGB: 1
+
+# Definition for all services
 services:
   # The Flask Web Application
   - type: web
@@ -6,11 +15,15 @@ services:
     plan: free # Use the free instance type
     buildCommand: "pip install -r requirements.txt"
     startCommand: "gunicorn app:app"
+    # This section tells the web service to use the disk defined above
+    disk:
+      name: data-disk # Must match the name of the disk above
+      mountPath: /data # The path inside the service's container
     envVars:
       - key: PYTHON_VERSION
-        value: 3.10.6 # Specify a Python version
+        value: 3.10.6
       - key: SECRET_KEY
-        generateValue: true # Let Render generate a random secret key
+        generateValue: true
       - key: ADMIN_PASSWORD
         sync: false # Set this in the Render Dashboard
       - key: TELEGRAM_BOT_TOKEN
@@ -18,13 +31,7 @@ services:
       - key: ADMIN_TELEGRAM_CHAT_ID
         sync: false # Set this in the Render Dashboard
       - key: DATA_FOLDER_PATH
-        value: /data # The mount path for our persistent disk
-    
-    # Persistent Disk for storing JSON files and uploads
-    disks:
-      - name: data-disk
-        mountPath: /data
-        sizeGB: 1
+        value: /data # IMPORTANT: This tells the app to save files to the disk
 
   # The Telegram Bot Background Worker
   - type: worker
@@ -32,9 +39,14 @@ services:
     env: python
     plan: free
     buildCommand: "pip install -r requirements.txt"
-    startCommand: "python -c 'from app import load_data, run_bot; load_data(); run_bot()'" # Command to start only the bot
+    startCommand: "python -c 'from app import load_data, run_bot; load_data(); run_bot()'"
     envVars:
       - key: PYTHON_VERSION
+        value: 3.10.6
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: ADMIN_TELEGRAM_CHAT_ID
+        sync: false      - key: PYTHON_VERSION
         value: 3.10.6
       - key: TELEGRAM_BOT_TOKEN
         sync: false
