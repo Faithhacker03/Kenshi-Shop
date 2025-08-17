@@ -1,4 +1,4 @@
-# Corrected render.yaml
+# Corrected render.yaml (Version 3)
 
 # Top-level definition for all persistent disks in this Blueprint
 disks:
@@ -12,29 +12,40 @@ services:
   - type: web
     name: kenshi-shop
     env: python
-    plan: free # Use the free instance type
+    plan: free 
     buildCommand: "pip install -r requirements.txt"
     startCommand: "gunicorn app:app"
-    # This section tells the web service to use the disk defined above
     disk:
-      name: data-disk # Must match the name of the disk above
-      mountPath: /data # The path inside the service's container
+      name: data-disk 
+      mountPath: /data
     envVars:
       - key: PYTHON_VERSION
         value: 3.10.6
       - key: SECRET_KEY
         generateValue: true
       - key: ADMIN_PASSWORD
-        sync: false # Set this in the Render Dashboard
+        sync: false 
       - key: TELEGRAM_BOT_TOKEN
-        sync: false # Set this in the Render Dashboard
+        sync: false 
       - key: ADMIN_TELEGRAM_CHAT_ID
-        sync: false # Set this in the Render Dashboard
+        sync: false 
       - key: DATA_FOLDER_PATH
-        value: /data # IMPORTANT: This tells the app to save files to the disk
+        value: /data
 
   # The Telegram Bot Background Worker
   - type: worker
+    name: kenshi-bot
+    env: python
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python -c 'from app import load_data, run_bot; load_data(); run_bot()'"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.6
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: ADMIN_TELEGRAM_CHAT_ID
+        sync: false  - type: worker
     name: kenshi-bot
     env: python
     plan: free
