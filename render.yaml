@@ -1,27 +1,36 @@
+# render.yaml (Correct Blueprint Structure)
+
+# 1. Define all disks for the project at the top level.
+disks:
+  - name: kenshi-data
+    mountPath: /data
+    sizeGB: 1
+
+# 2. Define all services for the project.
 services:
   # The Flask Web Application
   - type: web
     name: kenshi-shop
     env: python
-    plan: free 
+    plan: free
     buildCommand: "pip install -r requirements.txt"
     startCommand: "gunicorn app:app"
-    disks:
-      - name: data-disk
-        mountPath: /data
-        sizeGB: 1
+    # 3. ATTACH the disk defined above to this service.
+    disk:
+      name: kenshi-data # This name MUST match the disk name from the top level
+      mountPath: /data # The path inside this service's container
     envVars:
       - key: PYTHON_VERSION
         value: 3.10.6
       - key: SECRET_KEY
         generateValue: true
       - key: ADMIN_PASSWORD
-        sync: false 
+        sync: false
       - key: TELEGRAM_BOT_TOKEN
-        sync: false 
+        sync: false
       - key: ADMIN_TELEGRAM_CHAT_ID
-        sync: false 
-      - key: DATA_FOLDER_PATH
+        sync: false
+      - key: DATA_FOLDER_PATH # Tells the app to use the mounted disk
         value: /data
 
   # The Telegram Bot Background Worker
