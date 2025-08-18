@@ -48,8 +48,8 @@ envVarGroups:
       - key: SECRET_KEY
         generateValue: true # Render can generate a secure random string for this
       - key: ADMIN_PASSWORD
-        value: YourAdminPasswordHere # Replace with a strong password
+        value: Kenzen0325@ # Replace with a strong password
       - key: TELEGRAM_BOT_TOKEN
-        value: YourTelegramBotTokenHere # Replace with your bot token
+        value: 8280489753:AAFVUl8FhPj3qK2Aa8h_Q2N87K1j9jPOPEo # Replace with your bot token
       - key: ADMIN_TELEGRAM_CHAT_ID
-        value: YourAdminChatIDHere # Replace with your chat ID
+        value: 8252162481 # Replace with your chat ID
