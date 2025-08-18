@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Products - Kenshi Shop</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .product-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .product-table th, .product-table td { padding: 12px; border-bottom: 1px solid #333; text-align: left; vertical-align: middle; }
+        .product-table th { background-color: #1f1f1f; }
+        .product-table tr:hover { background-color: #2c2c2c; }
+        .btn-sm { padding: 6px 12px; font-size: 0.9em; }
+        .actions-cell { display: flex; gap: 10px; }
+    </style>
 </head>
 <body>
     <nav class="navbar">
@@ -41,12 +49,18 @@
                 {% for product in products %}
                 <tr>
                     <td>{{ product.name }}</td>
-                    <td>{{ product.category | replace('_', ' ')|title }}</td>
+                    <td>
+                        {% if product.category == 'ml_account' %}Mobile Legends Account
+                        {% elif product.category == 'codm' %}CODM Account
+                        {% elif product.category == 'web_checker' %}Web Checker
+                        {% else %}{{ product.category | capitalize }}{% endif %}
+                    </td>
                     <td>${{ "%.2f"|format(product.price|float) }}</td>
                     <td>{{ product.status | capitalize }}</td>
                     <td class="actions-cell">
                         <a href="{{ url_for('edit_product', product_id=product.id) }}" class="btn btn-sm">Edit</a>
-                        <form method="post" action="{{ url_for('delete_product', product_id=product.id) }}" onsubmit="return confirm('Are you sure you want to permanently delete this product and its files?');">
+                        <!-- NEW: Delete button in a form with confirmation -->
+                        <form method="post" action="{{ url_for('delete_product', product_id=product.id) }}" onsubmit="return confirm('Are you sure you want to permanently delete this product?');">
                             <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                         </form>
                     </td>
