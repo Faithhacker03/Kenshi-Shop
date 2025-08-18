@@ -12,61 +12,44 @@
         <ul class="nav-links">
             {% if session.admin_logged_in %}
                 <li><a href="{{ url_for('admin_dashboard') }}">Dashboard</a></li>
-                <li><a href="{{ url_for('manage_products') }}">Manage Products</a></li>
-                <li><a href="{{ url_for('add_product') }}">Add Product</a></li>
                 <li><a href="{{ url_for('admin_logout') }}">Logout</a></li>
             {% else %}
                 <li><a href="{{ url_for('index') }}">Home</a></li>
-                <li><a href="https://t.me/your_telegram_username" target="_blank">Telegram Support</a></li>
+                <li><a href="{{ url_for('proofs') }}">Proofs</a></li>
+                <li><a href="https://t.me/{{ telegram_contact }}" target="_blank">Telegram Support</a></li>
                 <li><a href="{{ url_for('admin_login') }}">Admin Login</a></li>
             {% endif %}
         </ul>
     </nav>
     <div class="container">
         <h1 class="page-title">{{ product.name }}</h1>
-        <div style="display: flex; flex-wrap: wrap; gap: 40px; background: #1e1e1e; padding: 30px; border-radius: 15px;">
-            <div style="flex: 1; min-width: 300px;">
-                <img src="{{ url_for('static', filename='uploads/' + product.image_filename) }}" alt="{{ product.name }}" style="width: 100%; border-radius: 10px;">
+        <div class="product-details-grid">
+            <div class="product-image-container">
+                <!-- ### THIS LINE IS THE FIX ### -->
+                <img src="{{ url_for('serve_upload', filename=product.image_filename) }}" alt="{{ product.name }}">
             </div>
-            <div style="flex: 1; min-width: 300px;">
+            <div class="product-info-container">
                 <h2>Description</h2>
-                <p style="line-height: 1.7; white-space: pre-wrap;">{{ product.description | safe }}</p>
+                <p class="product-description">{{ product.description | safe }}</p>
                 {% if product.bonus_freebies %}
-                <div class="bonuses" style="margin-top: 20px; background-color: #2c2c2c; padding: 15px; border-radius: 8px; border-left: 3px solid #00aaff;">
-                    <h4 style="margin-top: 0; color: #fff;">Bonuses Included:</h4>
-                    <ul style="padding-left: 20px; margin-bottom: 0;">
-                        {% for freebie in product.bonus_freebies %}<li>{{ freebie }}</li>{% endfor %}
-                    </ul>
+                <div class="bonuses">
+                    <h4>Bonuses Included:</h4>
+                    <ul> {% for freebie in product.bonus_freebies %}<li>{{ freebie }}</li>{% endfor %} </ul>
                 </div>
                 {% endif %}
-                <div class="product-price" style="font-size: 2rem; margin-top: 20px;">
+                <div class="product-price">
                     {% if product.price|float > 0 %}
                         ₱{{ "%.2f"|format(product.price|float * php_rate) }}
-                        <span style="font-size: 1rem; color: #888;">(approx ${{ "%.2f"|format(product.price|float) }})</span>
-                    {% else %}
-                        FREE
-                    {% endif %}
+                        <span class="usd-approx">(approx ${{ "%.2f"|format(product.price|float) }})</span>
+                    {% else %} FREE {% endif %}
                 </div>
-                <form method="post" class="form-container" style="padding: 0; box-shadow: none; margin-top: 20px;">
-                    <div class="form-group">
-                        <h3>How to Order</h3>
-                        <p>Click "Proceed" to generate your unique order page. On that page, you will get our payment details and instructions on how to link your Telegram account for delivery.</p>
-                    </div>
-                    {% if product.price|float > 0 %}
-                    <div class="form-group">
-                        <label for="payment_method">Choose Payment Method:</label>
-                        <select id="payment_method" name="payment_method" class="form-group">
-                            <option value="gcash">G-Cash</option>
-                            <option value="paymaya">PayMaya</option>
-                        </select>
-                    </div>
-                    {% else %}
-                        <input type="hidden" name="payment_method" value="freebie">
-                    {% endif %}
-                    <button type="submit" class="btn">
-                        {% if product.price|float > 0 %}Proceed to Payment Steps{% else %}Get Now{% endif %}
-                    </button>
-                </form>
+                <div class="form-container manual-buy">
+                    <h3>How to Get This Item</h3>
+                    <p>To purchase or claim this item, contact the owner on Telegram. Please mention the product name: <strong>{{ product.name }}</strong></p>
+                    <a href="https://t.me/{{ telegram_contact }}" target="_blank" class="btn">
+                        {% if product.price|float > 0 %}Contact Owner to Buy{% else %}Contact to Claim{% endif %}
+                    </a>
+                </div>
             </div>
         </div>
     </div>
