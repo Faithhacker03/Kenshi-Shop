@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+pip-selfcheck.json
+*.egg-info/
+
+# Data folder (for local testing - will not be uploaded)
+data/
+
+# IDE files
+.vscode/
+.idea/
+
+# Local environment variables
+.env
