@@ -1,9 +1,3 @@
-# This is a render.yaml file.
-# It tells Render how to build and deploy your services.
-# - A "Web Service" for the Flask App.
-# - A "Background Worker" for the Telegram Bot.
-# - A "Disk" for persistent file storage.
-
 services:
   # The Flask Web Application
   - type: web
@@ -15,13 +9,7 @@ services:
     envVars:
       - key: PYTHON_VERSION
         value: 3.10.6
-      - key: DATA_FOLDER_PATH
-        value: /var/data # IMPORTANT: This is the mount path for the persistent disk
-      - fromGroup: kenshi-shop-secrets # Reference to the environment group
-    disk:
-      name: kenshi-data
-      mountPath: /var/data
-      sizeGB: 1
+      - fromGroup: kenshi-shop-secrets
 
   # The Telegram Bot Listener
   - type: worker
@@ -33,23 +21,19 @@ services:
     envVars:
       - key: PYTHON_VERSION
         value: 3.10.6
-      - key: DATA_FOLDER_PATH
-        value: /var/data
       - fromGroup: kenshi-shop-secrets
-    disk:
-      name: kenshi-data
-      mountPath: /var/data
-      sizeGB: 1
 
 # Define the environment variable group for secrets
 envVarGroups:
   - name: kenshi-shop-secrets
     envVars:
       - key: SECRET_KEY
-        generateValue: true # Render can generate a secure random string for this
+        generateValue: true
+      - key: DETA_PROJECT_KEY # <-- NEW AND MOST IMPORTANT
+        value: "Your_Deta_Project_Key_Here"
       - key: ADMIN_PASSWORD
-        value: Kenzen0325@ # Replace with a strong password
+        value: "Your_Admin_Password_Here"
       - key: TELEGRAM_BOT_TOKEN
-        value: 8280489753:AAFVUl8FhPj3qK2Aa8h_Q2N87K1j9jPOPEo # Replace with your bot token
+        value: "Your_Telegram_Token_Here"
       - key: ADMIN_TELEGRAM_CHAT_ID
-        value: 8252162481 # Replace with your chat ID
+        value: "Your_Admin_Chat_ID_Here"

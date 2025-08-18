@@ -4,3 +4,4 @@ requests
 Werkzeug
 gunicorn
 python-dotenv
+deta
