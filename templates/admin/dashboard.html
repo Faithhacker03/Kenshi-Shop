@@ -50,19 +50,18 @@
                         
                         {% if order.receipt_filename %}
                             <p><strong>Payment Proof:</strong></p>
-                            <!-- FIXED LINK AND IMAGE PATH -->
-                            <a href="{{ url_for('serve_data_file', filename=order.receipt_filename) }}" target="_blank">
-                                <img src="{{ url_for('serve_data_file', filename=order.receipt_filename) }}" alt="Receipt" class="receipt-image">
+                            <a href="{{ url_for('serve_receipt', filename=order.receipt_filename) }}" target="_blank">
+                                <img src="{{ url_for('serve_receipt', filename=order.receipt_filename) }}" alt="Receipt" class="receipt-image">
                             </a>
                         {% else %}
                             <p><strong>Payment Proof:</strong> <span style="color: #ffc107;">Not yet uploaded.</span></p>
                         {% endif %}
                     </div>
                     <div style="margin-top: 10px;">
-                        <form method="post" action="{{ url_for('approve_order', order_id=order.id) }}">
+                        <form method="post" action="{{ url_for('approve_order', order_id=order.key) }}">
                             <div class="proof-checkbox">
-                                <input type="checkbox" id="mark_as_proof_{{order.id}}" name="mark_as_proof">
-                                <label for="mark_as_proof_{{order.id}}">Add to transaction proofs?</label>
+                                <input type="checkbox" id="mark_as_proof_{{order.key}}" name="mark_as_proof">
+                                <label for="mark_as_proof_{{order.key}}">Add to transaction proofs?</label>
                             </div>
                             <button type="submit" class="btn">Approve & Send File</button>
                         </form>
