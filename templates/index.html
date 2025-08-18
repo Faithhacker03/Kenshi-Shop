@@ -5,11 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kenshi Shop</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <!-- Add this link for the sidebar icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <!-- NEW: Animated Sidebar -->
     <div class="support-sidebar" id="support-sidebar">
         <div class="sidebar-toggle" onclick="toggleSidebar()">
             <i class="fab fa-telegram-plane"></i>
@@ -48,8 +46,7 @@
             {% for product in categorized_products.tools %}
                 <a href="{{ url_for('product_page', slug=product.slug) }}" style="text-decoration: none; color: inherit;">
                     <div class="product-card">
-                        <!-- FIXED IMAGE PATH -->
-                        <img src="{{ url_for('serve_data_file', filename=product.image_filename) }}" alt="{{ product.name }}">
+                        <img src="{{ url_for('serve_image', filename=product.image_filename) }}" alt="{{ product.name }}">
                         <div class="product-info">
                             <h3>{{ product.name }}</h3>
                             <p>{{ product.description[:100] | safe }}...</p>
@@ -69,8 +66,7 @@
             {% for product in categorized_products.web_checkers %}
                 <a href="{{ url_for('product_page', slug=product.slug) }}" style="text-decoration: none; color: inherit;">
                     <div class="product-card">
-                        <!-- FIXED IMAGE PATH -->
-                        <img src="{{ url_for('serve_data_file', filename=product.image_filename) }}" alt="{{ product.name }}">
+                        <img src="{{ url_for('serve_image', filename=product.image_filename) }}" alt="{{ product.name }}">
                         <div class="product-info">
                             <h3>{{ product.name }}</h3>
                             <p>{{ product.description[:100] | safe }}...</p>
@@ -90,8 +86,7 @@
             {% for product in categorized_products.ml_accounts %}
                 <a href="{{ url_for('product_page', slug=product.slug) }}" style="text-decoration: none; color: inherit;">
                     <div class="product-card">
-                        <!-- FIXED IMAGE PATH -->
-                        <img src="{{ url_for('serve_data_file', filename=product.image_filename) }}" alt="{{ product.name }}">
+                        <img src="{{ url_for('serve_image', filename=product.image_filename) }}" alt="{{ product.name }}">
                         <div class="product-info">
                             <h3>{{ product.name }}</h3>
                             <p>{{ product.description[:100] | safe }}...</p>
@@ -114,8 +109,7 @@
             {% for product in categorized_products.codm_active %}
                  <a href="{{ url_for('product_page', slug=product.slug) }}" style="text-decoration: none; color: inherit;">
                     <div class="product-card">
-                        <!-- FIXED IMAGE PATH -->
-                        <img src="{{ url_for('serve_data_file', filename=product.image_filename) }}" alt="{{ product.name }}">
+                        <img src="{{ url_for('serve_image', filename=product.image_filename) }}" alt="{{ product.name }}">
                         <div class="product-info">
                             <h3>{{ product.name }}</h3>
                             <p>{{ product.description[:100] | safe }}...</p>
@@ -133,8 +127,7 @@
             {% for product in categorized_products.codm_semi_active %}
                  <a href="{{ url_for('product_page', slug=product.slug) }}" style="text-decoration: none; color: inherit;">
                     <div class="product-card">
-                        <!-- FIXED IMAGE PATH -->
-                        <img src="{{ url_for('serve_data_file', filename=product.image_filename) }}" alt="{{ product.name }}">
+                        <img src="{{ url_for('serve_image', filename=product.image_filename) }}" alt="{{ product.name }}">
                         <div class="product-info">
                             <h3>{{ product.name }}</h3>
                             <p>{{ product.description[:100] | safe }}...</p>
@@ -152,8 +145,7 @@
             {% for product in categorized_products.codm_inactive %}
                  <a href="{{ url_for('product_page', slug=product.slug) }}" style="text-decoration: none; color: inherit;">
                     <div class="product-card">
-                        <!-- FIXED IMAGE PATH -->
-                        <img src="{{ url_for('serve_data_file', filename=product.image_filename) }}" alt="{{ product.name }}">
+                        <img src="{{ url_for('serve_image', filename=product.image_filename) }}" alt="{{ product.name }}">
                         <div class="product-info">
                             <h3>{{ product.name }}</h3>
                             <p>{{ product.description[:100] | safe }}...</p>
@@ -174,9 +166,23 @@
             {% for product in categorized_products.freebies %}
                 <a href="{{ url_for('product_page', slug=product.slug) }}" style="text-decoration: none; color: inherit;">
                     <div class="product-card">
-                        <!-- FIXED IMAGE PATH -->
-                        <img src="{{ url_for('serve_data_file', filename=product.image_filename) }}" alt="{{ product.name }}">
+                        <img src="{{ url_for('serve_image', filename=product.image_filename) }}" alt="{{ product.name }}">
                         <div class="product-info">
                             <h3>{{ product.name }}</h3>
                             <p>{{ product.description[:100] | safe }}...</p>
-                            <div c
+                            <div class="product-price">FREE</div>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById('support-sidebar').classList.toggle('open');
+        }
+    </script>
+</body>
+</html>

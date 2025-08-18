@@ -34,7 +34,6 @@
     </style>
 </head>
 <body>
-    <!-- Animated Sidebar -->
     <div class="support-sidebar" id="support-sidebar">
         <div class="sidebar-toggle" onclick="toggleSidebar()">
             <i class="fab fa-telegram-plane"></i>
@@ -65,8 +64,7 @@
         <div class="proof-grid">
             {% for proof in proofs %}
             <div class="proof-card">
-                <!-- FIXED IMAGE PATH -->
-                <img src="{{ url_for('serve_data_file', filename=proof.receipt_filename) }}" alt="Transaction Receipt">
+                <img src="{{ url_for('serve_receipt', filename=proof.receipt_filename) }}" alt="Transaction Receipt">
                 <div class="proof-info">
                     <h3>{{ proof.product_name }}</h3>
                 </div>

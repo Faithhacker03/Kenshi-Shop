@@ -26,8 +26,7 @@
         <h1 class="page-title">{{ product.name }}</h1>
         <div style="display: flex; flex-wrap: wrap; gap: 40px; background: #1e1e1e; padding: 30px; border-radius: 15px;">
             <div style="flex: 1; min-width: 300px;">
-                <!-- FIXED IMAGE PATH -->
-                <img src="{{ url_for('serve_data_file', filename=product.image_filename) }}" alt="{{ product.name }}" style="width: 100%; border-radius: 10px;">
+                <img src="{{ url_for('serve_image', filename=product.image_filename) }}" alt="{{ product.name }}" style="width: 100%; border-radius: 10px;">
             </div>
             <div style="flex: 1; min-width: 300px;">
                 <h2>Description</h2>
