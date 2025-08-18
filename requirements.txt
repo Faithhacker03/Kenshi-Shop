@@ -1,3 +1,6 @@
 Flask
-werkzeug
+pyTelegramBotAPI
+requests
+Werkzeug
 gunicorn
+python-dotenv
