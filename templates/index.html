@@ -8,19 +8,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+    <!-- Sidebar -->
     <div class="support-sidebar" id="support-sidebar">
-        <div class="sidebar-toggle" onclick="toggleSidebar()">
-            <i class="fab fa-telegram-plane"></i>
-        </div>
+        <div class="sidebar-toggle" onclick="toggleSidebar()"><i class="fab fa-telegram-plane"></i></div>
         <div class="sidebar-content">
             <h4>Support</h4>
-            <a href="https://t.me/KenshiKupalBoss" target="_blank">
-                <i class="fab fa-telegram"></i> @KenshiKupalBoss
-            </a>
+            <a href="https://t.me/KenshiKupalBoss" target="_blank"><i class="fab fa-telegram"></i> @KenshiKupalBoss</a>
             <p>Click to get help!</p>
         </div>
     </div>
-
+    <!-- Navbar -->
     <nav class="navbar">
         <a href="{{ url_for('index') }}" class="navbar-brand">Kenshi Shop</a>
         <ul class="nav-links">
@@ -37,152 +34,46 @@
             {% endif %}
         </ul>
     </nav>
-
+    <!-- Main Content -->
     <div class="container">
-        <!-- Tools Section -->
-        {% if categorized_products.tools %}
-        <h1 class="page-title">Tools</h1>
-        <div class="product-grid">
-            {% for product in categorized_products.tools %}
-                <a href="{{ url_for('product_page', slug=product.slug) }}" style="text-decoration: none; color: inherit;">
-                    <div class="product-card">
-                        <img src="{{ url_for('serve_image', filename=product.image_filename) }}" alt="{{ product.name }}">
-                        <div class="product-info">
-                            <h3>{{ product.name }}</h3>
-                            <p>{{ product.description[:100] | safe }}...</p>
-                            <div class="product-price">₱{{ "%.2f"|format(product.price|float * php_rate) }}</div>
-                        </div>
-                    </div>
-                </a>
-            {% endfor %}
-        </div>
-        <hr style="border-color: #333; margin: 60px 0;">
-        {% endif %}
-
-        <!-- Web Checker Tools Section -->
-        {% if categorized_products.web_checkers %}
-        <h1 class="page-title">Web Checker Tools</h1>
-        <div class="product-grid">
-            {% for product in categorized_products.web_checkers %}
-                <a href="{{ url_for('product_page', slug=product.slug) }}" style="text-decoration: none; color: inherit;">
-                    <div class="product-card">
-                        <img src="{{ url_for('serve_image', filename=product.image_filename) }}" alt="{{ product.name }}">
-                        <div class="product-info">
-                            <h3>{{ product.name }}</h3>
-                            <p>{{ product.description[:100] | safe }}...</p>
-                            <div class="product-price">₱{{ "%.2f"|format(product.price|float * php_rate) }}</div>
-                        </div>
-                    </div>
-                </a>
-            {% endfor %}
-        </div>
-        <hr style="border-color: #333; margin: 60px 0;">
-        {% endif %}
-        
-        <!-- Mobile Legends Accounts Section -->
-        {% if categorized_products.ml_accounts %}
-        <h1 class="page-title">Mobile Legends Accounts</h1>
-        <div class="product-grid">
-            {% for product in categorized_products.ml_accounts %}
-                <a href="{{ url_for('product_page', slug=product.slug) }}" style="text-decoration: none; color: inherit;">
-                    <div class="product-card">
-                        <img src="{{ url_for('serve_image', filename=product.image_filename) }}" alt="{{ product.name }}">
-                        <div class="product-info">
-                            <h3>{{ product.name }}</h3>
-                            <p>{{ product.description[:100] | safe }}...</p>
-                            <div class="product-price">₱{{ "%.2f"|format(product.price|float * php_rate) }}</div>
-                        </div>
-                    </div>
-                </a>
-            {% endfor %}
-        </div>
-        <hr style="border-color: #333; margin: 60px 0;">
-        {% endif %}
-
-        <!-- CODM Garena Accounts Section -->
-        {% if categorized_products.codm_active or categorized_products.codm_semi_active or categorized_products.codm_inactive %}
-        <h1 class="page-title">CODM Garena Accounts</h1>
-        
-        {% if categorized_products.codm_active %}
-        <h3>Active</h3>
-        <div class="product-grid">
-            {% for product in categorized_products.codm_active %}
-                 <a href="{{ url_for('product_page', slug=product.slug) }}" style="text-decoration: none; color: inherit;">
-                    <div class="product-card">
-                        <img src="{{ url_for('serve_image', filename=product.image_filename) }}" alt="{{ product.name }}">
-                        <div class="product-info">
-                            <h3>{{ product.name }}</h3>
-                            <p>{{ product.description[:100] | safe }}...</p>
-                            <div class="product-price">₱{{ "%.2f"|format(product.price|float * php_rate) }}</div>
-                        </div>
-                    </div>
-                </a>
-            {% endfor %}
-        </div>
-        {% endif %}
-
-        {% if categorized_products.codm_semi_active %}
-        <h3 style="margin-top: 40px;">Semi-Active</h3>
-        <div class="product-grid">
-            {% for product in categorized_products.codm_semi_active %}
-                 <a href="{{ url_for('product_page', slug=product.slug) }}" style="text-decoration: none; color: inherit;">
-                    <div class="product-card">
-                        <img src="{{ url_for('serve_image', filename=product.image_filename) }}" alt="{{ product.name }}">
-                        <div class="product-info">
-                            <h3>{{ product.name }}</h3>
-                            <p>{{ product.description[:100] | safe }}...</p>
-                            <div class="product-price">₱{{ "%.2f"|format(product.price|float * php_rate) }}</div>
-                        </div>
-                    </div>
-                </a>
-            {% endfor %}
-        </div>
-        {% endif %}
-        
-        {% if categorized_products.codm_inactive %}
-        <h3 style="margin-top: 40px;">Inactive</h3>
-        <div class="product-grid">
-            {% for product in categorized_products.codm_inactive %}
-                 <a href="{{ url_for('product_page', slug=product.slug) }}" style="text-decoration: none; color: inherit;">
-                    <div class="product-card">
-                        <img src="{{ url_for('serve_image', filename=product.image_filename) }}" alt="{{ product.name }}">
-                        <div class="product-info">
-                            <h3>{{ product.name }}</h3>
-                            <p>{{ product.description[:100] | safe }}...</p>
-                            <div class="product-price">₱{{ "%.2f"|format(product.price|float * php_rate) }}</div>
-                        </div>
-                    </div>
-                </a>
-            {% endfor %}
-        </div>
-        {% endif %}
-        <hr style="border-color: #333; margin: 60px 0;">
-        {% endif %}
-
-        <!-- Freebies Section -->
-        {% if categorized_products.freebies %}
-        <h1 class="page-title">Freebies</h1>
-        <div class="product-grid">
-            {% for product in categorized_products.freebies %}
-                <a href="{{ url_for('product_page', slug=product.slug) }}" style="text-decoration: none; color: inherit;">
-                    <div class="product-card">
-                        <img src="{{ url_for('serve_image', filename=product.image_filename) }}" alt="{{ product.name }}">
-                        <div class="product-info">
-                            <h3>{{ product.name }}</h3>
-                            <p>{{ product.description[:100] | safe }}...</p>
-                            <div class="product-price">FREE</div>
-                        </div>
-                    </div>
-                </a>
-            {% endfor %}
-        </div>
-        {% endif %}
+        {% for category_key, products_list in categorized_products.items() %}
+            {% if products_list %}
+                {% if category_key == 'tools' %}<h1 class="page-title">Tools</h1>
+                {% elif category_key == 'web_checkers' %}<h1 class="page-title">Web Checker Tools</h1>
+                {% elif category_key == 'ml_accounts' %}<h1 class="page-title">Mobile Legends Accounts</h1>
+                {% elif category_key == 'codm_active' %}<h1 class="page-title">CODM Garena Accounts</h1><h3>Active</h3>
+                {% elif category_key == 'codm_semi_active' %}<h3 style="margin-top: 40px;">Semi-Active</h3>
+                {% elif category_key == 'codm_inactive' %}<h3 style="margin-top: 40px;">Inactive</h3>
+                {% elif category_key == 'freebies' %}<h1 class="page-title">Freebies</h1>
+                {% endif %}
+                <div class="product-grid">
+                    {% for product in products_list %}
+                        <a href="{{ url_for('product_page', slug=product.slug) }}" style="text-decoration: none; color: inherit;">
+                            <div class="product-card">
+                                <img src="{{ product.image_url }}" alt="{{ product.name }}">
+                                <div class="product-info">
+                                    <h3>{{ product.name }}</h3>
+                                    <p>{{ product.description[:100] | safe }}...</p>
+                                    <div class="product-price">
+                                        {% if product.price|float > 0 %}
+                                            ₱{{ "%.2f"|format(product.price|float * php_rate) }}
+                                        {% else %}
+                                            FREE
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    {% endfor %}
+                </div>
+                {% if category_key in ['tools', 'web_checkers', 'ml_accounts', 'codm_inactive'] %}
+                    <hr style="border-color: #333; margin: 60px 0;">
+                {% endif %}
+            {% endif %}
+        {% endfor %}
     </div>
-
     <script>
-        function toggleSidebar() {
-            document.getElementById('support-sidebar').classList.toggle('open');
-        }
+        function toggleSidebar() { document.getElementById('support-sidebar').classList.toggle('open'); }
     </script>
 </body>
 </html>
