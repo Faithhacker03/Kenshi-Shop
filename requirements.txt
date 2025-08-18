@@ -4,5 +4,6 @@ requests
 Werkzeug
 gunicorn
 python-dotenv
-deta
-boto3
+pymongo[srv]
+dnspython
+cloudinary
