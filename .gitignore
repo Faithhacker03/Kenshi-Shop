@@ -1,0 +1,14 @@
+# Python virtual environments
+env/
+venv/
+__pycache__/
+
+# Local data (for old testing versions)
+data/
+
+# IDE configuration files
+.vscode/
+.idea/
+
+# Local environment variables file
+.env
