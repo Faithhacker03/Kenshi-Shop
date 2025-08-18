@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Status - Kenshi Shop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .status-box { background-color: #1e1e1e; padding: 40px; border-radius: 15px; text-align: center; max-width: 700px; margin: 40px auto; }
+        .status-unpaid { border-left: 5px solid #00aaff; }
+        .status-pending { border-left: 5px solid #ffc107; }
+        .status-approved, .status-completed { border-left: 5px solid #28a745; }
+        .claim-code-box { background-color: #333; padding: 10px; border-radius: 5px; font-family: monospace; font-size: 1.1em; color: #fff; user-select: all; display: block; text-decoration: none; }
+        .claim-code-box:hover { background-color: #444; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="{{ url_for('index') }}" class="navbar-brand">Kenshi Shop</a>
+        <ul class="nav-links">
+            {% if session.admin_logged_in %}
+                <li><a href="{{ url_for('admin_dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ url_for('manage_products') }}">Manage Products</a></li>
+                <li><a href="{{ url_for('add_product') }}">Add Product</a></li>
+                <li><a href="{{ url_for('admin_logout') }}">Logout</a></li>
+            {% else %}
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="https://t.me/your_telegram_username" target="_blank">Telegram Support</a></li>
+                <li><a href="{{ url_for('admin_login') }}">Admin Login</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    <div class="container">
+        <h1 class="page-title">Your Order Status</h1>
+        <div class="status-box status-{{ order.status }}">
+            <h2>Product: {{ order.product_name }}</h2>
+            <p><strong>Order ID:</strong> {{ order.id }}</p>
+            <hr style="border-color: #333; margin: 20px 0;">
+
+            {% if order.status == 'unpaid' %}
+                <div style="background-color: #2c2c2c; padding: 15px; border-radius: 8px; margin-bottom: 30px;">
+                    <p style="margin-top: 0; font-weight: bold; font-size: 1.1em; color: #ffc107;">Step 1: Link Your Telegram Account</p>
+                    <p>To receive your file, you must send your unique claim code to our bot. Click the code below to open Telegram and send the message.</p>
+                    <a href="https://t.me/{{ bot_username }}?start={{ order.claim_code }}" target="_blank" class="claim-code-box">/claim {{ order.claim_code }}</a>
+                </div>
+            
+                <h3>Step 2: Make Payment & Upload Proof</h3>
+                <div class="payment-instructions" style="background: #2c2c2c; padding: 20px; border-radius: 10px; margin-top: 20px; text-align: left;">
+                    {% if order.payment_method == 'gcash' %}<p><strong>Method:</strong> G-Cash</p><p><strong>G-Cash Number:</strong> {{ payment_details.gcash }}</p>{% elif order.payment_method == 'paymaya' %}<p><strong>Method:</strong> PayMaya</p><p><strong>PayMaya Number:</strong> {{ payment_details.paymaya }}</p>{% endif %}
+                </div>
+                <form method="post" action="{{ url_for('submit_payment', order_id=order.id) }}" enctype="multipart/form-data" class="form-container" style="padding: 0; box-shadow: none; margin-top: 30px; text-align: left;">
+                    <div class="form-group"><label for="receipt_image">After paying, upload a screenshot of your receipt:</label><input type="file" id="receipt_image" name="receipt_image" accept="image/*" required></div>
+                    <button type="submit" class="btn">Confirm Payment</button>
+                </form>
+
+            {% elif order.status == 'pending' %}
+                <h3>Status: Payment Pending Review</h3>
+                <p>We have received your payment proof. Please wait while our admin verifies your transaction.</p>
+                {% if not order.buyer_chat_id %}
+                <p style="font-weight: bold; color: #ffc107; margin-top: 15px;">REMINDER: You still need to link your Telegram account by sending your claim code to our bot to receive your file!</p>
+                <a href="https://t.me/{{ bot_username }}?start={{ order.claim_code }}" target="_blank" class="claim-code-box" style="margin-top: 10px;">/claim {{ order.claim_code }}</a>
+                {% else %}
+                <p style="color: #28a745; margin-top: 15px;">Your Telegram account is successfully linked. You will receive your file there once approved.</p>
+                {% endif %}
+
+            {% elif order.status == 'approved' or order.status == 'completed' %}
+                <h3>Status: Approved! Your Download is Ready.</h3>
+                <p>Thank you! Your download link has been sent to your linked Telegram account. You can also use the button below.</p>
+                <a href="{{ url_for('download_file', token=order.download_token) }}" class="btn" style="margin-top: 20px;">Download Now</a>
+                <p style="font-size: 0.8em; color: #888; margin-top: 15px;">This is a one-time download link.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
