@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Kenshi Shop - Final Version for Render Deployment
+Kenshi Shop - Final Version for Render Deployment (with Path Fix)
 """
 
 import os
@@ -25,9 +25,12 @@ PERSISTENT_STORAGE_PATH = os.environ.get('RENDER_DISK_PATH', os.getcwd())
 # --- Core Config ---
 app.config.update(
     SECRET_KEY=os.environ.get('SECRET_KEY', 'a-default-secret-key-for-local-dev'),
-    UPLOAD_FOLDER=os.path.join(PERSISTENT_STORAGE_PATH, 'uploads/'), # Simplified path
+
+    # CORRECTED: Simplified paths to avoid permission errors
+    UPLOAD_FOLDER=os.path.join(PERSISTENT_STORAGE_PATH, 'uploads/'),
     SECURE_FILES_FOLDER=os.path.join(PERSISTENT_STORAGE_PATH, 'secure_files/'),
     DATA_FOLDER=os.path.join(PERSISTENT_STORAGE_PATH, 'data/'),
+
     MAX_CONTENT_LENGTH=16 * 1024 * 1024
 )
 
@@ -46,8 +49,8 @@ for folder_key in ['UPLOAD_FOLDER', 'SECURE_FILES_FOLDER', 'DATA_FOLDER']:
 
 PRODUCTS_FILE = os.path.join(app.config['DATA_FOLDER'], 'products.json')
 
-# (The rest of your code is perfect, just adding the new route at the end)
 
+# (The rest of the app.py code is identical and does not need to change)
 def save_data():
     try:
         with open(PRODUCTS_FILE, 'w') as f: json.dump(products, f, indent=4)
@@ -193,16 +196,12 @@ def delete_product(product_id):
         flash("Product data deleted, but an error occurred removing associated files.", "error")
     return redirect(url_for('manage_products'))
 
-# ==============================================================================
-#  *** NEW ROUTE TO SERVE UPLOADED IMAGES FROM THE PERSISTENT DISK ***
-# ==============================================================================
 @app.route('/media/<path:filename>')
 def serve_upload(filename):
     """Serves a file from the UPLOAD_FOLDER on the persistent disk."""
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
-# ==============================================================================
 
 if __name__ == '__main__':
     load_data()
     port = int(os.environ.get('PORT', 5000))
-    app.run(debug=True, host='0.0.0.0', port=port) # debug=True for local testing
+    app.run(debug=False, host='0.0.0.0', port=port)
