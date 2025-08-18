@@ -22,7 +22,7 @@
             <form method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="category">Product Category:</label>
-                    <select id="category" name="category" class="form-group" onchange="updateFormForCategory()">
+                    <select id="category" name="category" onchange="updateFormForCategory()">
                         <option value="tools">Tool</option>
                         <option value="web_checker">Web Checker Tool</option>
                         <option value="ml_account">Mobile Legends Account</option>
@@ -31,45 +31,22 @@
                     </select>
                 </div>
 
-                <!-- CODM Specific -->
                 <div class="form-group" id="codm-subcategory-div" style="display: none;">
                     <label for="sub_category">CODM Account Status:</label>
-                    <select id="sub_category" name="sub_category" class="form-group">
+                    <select id="sub_category" name="sub_category">
                         <option value="active">Active</option>
                         <option value="semi-active">Semi-Active</option>
                         <option value="inactive">Inactive</option>
                     </select>
                 </div>
                 
-                <!-- Web Checker Specific -->
-                <div id="web-checker-div" style="display: none; background-color: #2c2c2c; padding: 15px; border-radius: 8px; margin-bottom: 25px;">
-                    <div class="form-group">
-                        <label for="checker_type">Checker Type:</label>
-                        <select id="checker_type" name="checker_type" class="form-group" onchange="updateFormForCategory()">
-                            <option value="open_source">Open Source (ZIP file)</option>
-                            <option value="website_link">Website Link (Timed Access)</option>
-                        </select>
-                    </div>
-                    <div id="website-link-div" style="display: none;">
-                        <div class="form-group">
-                            <label for="website_link">Website Link:</label>
-                            <input type="text" id="website_link" name="website_link" placeholder="https://your-checker-website.com/access">
-                        </div>
-                         <div class="form-group">
-                            <label for="expiration_days">Expiration (in days):</label>
-                            <input type="number" id="expiration_days" name="expiration_days" value="1" min="1">
-                        </div>
-                    </div>
-                </div>
-
                 <div class="form-group">
                     <label for="name">Product Name:</label>
                     <input type="text" id="name" name="name" required>
                 </div>
                 <div class="form-group">
-                    <label for="description">Features/Description (Optional)</label>
-                    <p id="description-helper" style="font-size: 0.9em; color: #888; margin-top: -20px;">For ZIP files, leave blank to auto-generate from <strong>features.txt</strong>.</p>
-                    <textarea id="description" name="description" rows="6" placeholder="Leave blank to auto-generate from ZIP..."></textarea>
+                    <label for="description">Features/Description</label>
+                    <textarea id="description" name="description" rows="6"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="bonus_freebies">Bonus Freebies (One per line)</label>
@@ -80,63 +57,23 @@
                     <input type="number" step="0.01" id="price" name="price" required value="0.00">
                 </div>
                 <div class="form-group">
-                    <label for="image">Product Image:</label>
+                    <label for="image">Product Image (Required):</label>
                     <input type="file" id="image" name="image" accept="image/*" required>
                 </div>
-                <div class="form-group" id="script-file-div">
-                    <label for="script">Product File (ZIP format):</label>
-                    <input type="file" id="script" name="script" accept=".zip" required>
+                <div class="form-group">
+                    <label for="script">Product File (ZIP, etc. Optional):</label>
+                    <input type="file" id="script" name="script">
                 </div>
                 <button type="submit" class="btn">Add Product</button>
             </form>
         </div>
     </div>
     <script>
-        const mlTemplate = `⭐ A great Mobile Legends Account!\n\n- 🎮 Level: \n- 👤 Name: \n- 🆔 UID: \n- 🏆 Rank: \n- 🔗 Bind(s): \n- 🌍 Country: `;
-        
         function updateFormForCategory() {
             var category = document.getElementById('category').value;
-            var checkerType = document.getElementById('checker_type').value;
-
             var codmDiv = document.getElementById('codm-subcategory-div');
-            var webCheckerDiv = document.getElementById('web-checker-div');
-            var websiteLinkDiv = document.getElementById('website-link-div');
-            var scriptFileDiv = document.getElementById('script-file-div');
-            var scriptInput = document.getElementById('script');
-            var descriptionTextarea = document.getElementById('description');
-            var descriptionHelper = document.getElementById('description-helper');
-
-            // Hide all conditional divs by default
-            codmDiv.style.display = 'none';
-            webCheckerDiv.style.display = 'none';
-            websiteLinkDiv.style.display = 'none';
-
-            // Reset description placeholder and helper text
-            descriptionTextarea.placeholder = 'Leave blank to auto-generate from ZIP...';
-            descriptionHelper.style.display = 'block';
-
-            if (category === 'codm') {
-                codmDiv.style.display = 'block';
-            } else if (category === 'ml_account') {
-                descriptionTextarea.placeholder = mlTemplate;
-                descriptionHelper.style.display = 'none';
-            } else if (category === 'web_checker') {
-                webCheckerDiv.style.display = 'block';
-                if (checkerType === 'website_link') {
-                    websiteLinkDiv.style.display = 'block';
-                    scriptFileDiv.style.display = 'none';
-                    scriptInput.required = false; // File is not needed for website links
-                } else {
-                    scriptFileDiv.style.display = 'block';
-                    scriptInput.required = true;
-                }
-            } else {
-                // For 'tools', 'freebies', etc.
-                scriptFileDiv.style.display = 'block';
-                scriptInput.required = true;
-            }
+            codmDiv.style.display = (category === 'codm') ? 'block' : 'none';
         }
-        // Run on page load to set initial state
         document.addEventListener('DOMContentLoaded', updateFormForCategory);
     </script>
 </body>
